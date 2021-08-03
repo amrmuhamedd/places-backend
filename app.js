@@ -5,9 +5,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const placesRoutes = require("./routes/places-routes");
-const usersRoutes = require("./routes/users-routes");
-const HttpError = require("./models/http-error");
+const placesRoutes = require("./routes/placesroutes");
+const usersRoutes = require("./routes/usersroutes");
+const HttpError = require("./models/httperror");
 
 const app = express();
 
@@ -45,14 +45,14 @@ app.use((error, req, res, next) => {
   res.status(error.code || 500);
   res.json({ message: error.message || "An unknown error occurred!" });
 });
-
+const PORT = process.env.PORT || 5000;
 mongoose
   .connect(
     "mongodb+srv://amr:ammo242484@cluster0.i4n7b.mongodb.net/places?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    app.listen(5000);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
